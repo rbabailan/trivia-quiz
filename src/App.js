@@ -1,16 +1,18 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 //Import Pages && components
-import Home from "../src/pages/Home";
-import Quiz from "../src/pages/Quiz";
+import Home from "./pages/Home/Home";
+import Quiz from "./pages/Quiz/Quiz";
+import Result from "./pages/Result/Result";
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/quiz" element={<Quiz />} />
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/quiz" element={<Quiz />} />
+          <Route exact path="/result" element={<Result />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -1,10 +1,27 @@
 .timerWrapper {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  top: 50%;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #464646;
 }
 
 .timerWrapper h2 {
-  font-size: 3rem;
+  width: 100%;
+  font-size: 6rem;
+  background-color: #1a1a1a;
+  color: var(--white);
+  text-align: center;
+  animation: shrink-opa 1s infinite;
+}
+
+@keyframes shrink-opa {
+  from {
+    opacity: 0;
+    font-size: 0rem;
+  }
+  to {
+    opacity: 1;
+  }
 }

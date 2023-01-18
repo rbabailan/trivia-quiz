@@ -2,7 +2,7 @@ import { sound } from "../data/soundData";
 
 export const MusicButton = (boolean) => {
   const promise = sound.play();
-  if (boolean == true) {
+  if (boolean === true) {
     if (promise !== undefined) {
       promise
         .catch((error) => {

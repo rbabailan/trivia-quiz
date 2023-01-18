@@ -1,33 +1,27 @@
-import { useState } from "react";
-
-import { Link } from "react-router-dom";
-import style from "./home.module.css";
-import { validateValue } from "../functions/validateValue";
-import { sound } from "../data/soundData";
-
-//Import Pages && Components
+import { useEffect, useState } from "react";
+import style from "./Home.module.css";
+import { validateValue } from "../../functions/validateValue";
+import { levelData, categoriesData, questionsData } from "../../data/soundData";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  localStorage.setItem("playSound", sound);
-  const questionsData = ["5", "10", "15", "20"];
-  const categoriesData = [
-    "Arts & Literature",
-    "Film & TV",
-    "History",
-    "Music",
-    "Geography",
-    "General Knowledge",
-    "Food & Drink",
-    "Science",
-    "Society & Culture",
-    "Sport & Leisure",
-  ];
-
-  const levelData = ["Easy", "Medium", "Hard"];
-
+  const navigate = useNavigate();
   const [questions, setQuestions] = useState("5");
   const [level, setLevel] = useState("easy");
   const [category, setCategory] = useState(randomCategory());
+  const [submit, isSubmit] = useState(false);
+
+  useEffect(() => {
+    if (submit !== false) {
+      navigate("/quiz", {
+        state: {
+          count: questions,
+          category: category,
+          level: level,
+        },
+      });
+    }
+  });
 
   function randomCategory() {
     const generateNumbers = Math.floor(Math.random() * 9) + 1;
@@ -38,7 +32,9 @@ const Home = () => {
     <div className={style.homeContainer}>
       <div className={style.content}>
         <div className={style.selectWrapper}>
-          <h2>Trivia Questions</h2>
+          <h2>
+            <span>T</span>RIVIA <span>Q</span>UIZ
+          </h2>
           <label htmlFor={category}>Select Category</label>
           <select
             value={category}
@@ -67,17 +63,11 @@ const Home = () => {
               </option>
             ))}
           </select>
-          <Link
-            to="/quiz"
-            state={{
-              count: questions,
-              level: level,
-              category: category,
-            }}>
-            <button>
-              <p>Start</p>
+          <div className={style.buttonWrapper}>
+            <button className={style.homeButton} onClick={() => isSubmit(true)}>
+              <p>START</p>
             </button>
-          </Link>
+          </div>
         </div>
       </div>
     </div>

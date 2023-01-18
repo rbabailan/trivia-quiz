@@ -1,0 +1,35 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  padding: 10px;
+  background-color: rgb(20 20 20);
+}
+
+.questionWrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40%;
+  background-color: rgb(46, 46, 46);
+  color: #fff;
+  border-radius: 14px;
+  text-align: center;
+  margin-bottom: 5px;
+  overflow: auto;
+}
+
+.answersWrapper {
+  width: 100%;
+  height: 50%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 5px;
+}
+
+.answersButton {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
