@@ -1,9 +1,11 @@
+import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { MusicButton } from "../../components/PlaySFX";
-import ProgressCircle from "../../components/ProgressCircle";
+import ProgressCircle from "../../components/ProgressCircle/ProgressCircle";
 import Questions from "../../components/Questions/Questions";
 import Timer from "../../components/Timer";
+import TopDrawer from "../../components/drawer/TopDrawer";
 
 const Quiz = () => {
   const location = useLocation();
@@ -56,17 +58,15 @@ const Quiz = () => {
     <>
       {data ? (
         <Timer>
-          <div>
-            <Questions
-              currQues={currQues}
-              answers={options}
-              setCurrQues={setCurrQues}
-              questions={data}
-              correct={data[currQues].correctAnswer}
-              setScore={setScore}
-              score={score}
-            />
-          </div>
+          <Questions
+            currQues={currQues}
+            answers={options}
+            setCurrQues={setCurrQues}
+            questions={data}
+            correct={data[currQues].correctAnswer}
+            setScore={setScore}
+            score={score}
+          />
         </Timer>
       ) : (
         <ProgressCircle />

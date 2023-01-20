@@ -4,7 +4,6 @@ import style from "./Timer.module.css";
 const Timer = ({ children }) => {
   const [visible, isVisible] = useState(false);
   const [countDown, setCountDown] = useState(3);
-  const [activeSound, setActiveSound] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {

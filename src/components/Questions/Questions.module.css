@@ -1,23 +1,39 @@
 .container {
   width: 100%;
-  height: 100vh;
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
+  background: linear-gradient(rgba(0, 0, 0, 0.6) 100%, rgba(0, 0, 0, 0.6) 100%),
+    url("../../img/background.jpg");
+}
+
+.scoreCard {
+  color: var(--white);
   padding: 10px;
-  background-color: rgb(20 20 20);
+  background-color: #444444;
+  width: min-content;
+  border-radius: 3px;
+  margin-bottom: 5px;
+  font-family: "Valera Round", sans-serif;
+  letter-spacing: 1.6px;
+}
+
+.questionPanel {
+  width: 100%;
+  height: calc(50% - 64px);
+  color: #fff;
+  border-radius: 14px;
+  overflow: auto;
+  padding: 0 10px;
 }
 
 .questionWrapper {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 40%;
-  background-color: rgb(46, 46, 46);
-  color: #fff;
-  border-radius: 14px;
   text-align: center;
-  margin-bottom: 5px;
-  overflow: auto;
+  background: linear-gradient(rgba(0, 0, 0, 0.8) 100%, rgba(0, 0, 0, 0.8) 100%);
+  height: 100%;
+  border-radius: 14px;
 }
 
 .answersWrapper {
@@ -25,11 +41,62 @@
   height: 50%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 5px;
+  gap: 10px;
+  padding: 5px;
 }
 
 .answersButton {
   width: 100%;
   height: 100%;
   border-radius: 10px;
+  background-color: #000000;
+  font-size: 1.225rem;
+  font-weight: bold;
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+}
+
+.answersButton:nth-child(even) {
+  background-color: #eb4feb;
+}
+.answersButton:nth-child(odd) {
+  background-color: #0000ad;
+}
+.answersButton:nth-child(3) {
+  background-color: #ffa500;
+}
+.answersButton:nth-child(4) {
+  background-color: #ff4968;
+}
+
+.answersButton.select {
+  background-color: #00d40e;
+}
+
+.answersButton.wrong {
+  background-color: #ee2f11;
+}
+
+.answersButton.unpick {
+  visibility: hidden;
+  --webkit-backface-visibility: hidden;
+}
+
+@media (max-width: 480px) {
+  .questionWrapper {
+    font-size: 1rem;
+  }
+
+  .answersWrapper {
+    width: 100%;
+    height: 50%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .answersButton {
+    font-size: 0.95rem;
+  }
 }

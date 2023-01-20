@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 //Import Pages && components
@@ -6,6 +7,14 @@ import Quiz from "./pages/Quiz/Quiz";
 import Result from "./pages/Result/Result";
 
 function App() {
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      // We execute the same script as before
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    });
+  });
+
   return (
     <BrowserRouter>
       <div className="App">
