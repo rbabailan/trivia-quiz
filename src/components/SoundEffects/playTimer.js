@@ -1,8 +1,8 @@
-import { sound } from "../data/soundData";
+import { sound } from "../../data/Datas";
 
-export const MusicButton = (boolean) => {
-  const promise = sound.play();
+export const playTimer = (boolean) => {
   if (boolean === true) {
+    const promise = sound.play();
     if (promise !== undefined) {
       promise
         .catch((error) => {
@@ -14,5 +14,7 @@ export const MusicButton = (boolean) => {
           console.log("good");
         });
     }
+  } else {
+    return;
   }
 };

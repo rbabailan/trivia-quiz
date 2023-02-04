@@ -1,7 +1,6 @@
 import style from "./Alert.module.css";
 
 const Alert = (props) => {
-  console.log(props.correct);
   if (props.correct === "correct") {
     return (
       <div className={style.correctAlertWrapper}>

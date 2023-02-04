@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import style from "./Home.module.css";
-import { validateValue } from "../../functions/validateValue";
-import { levelData, categoriesData, questionsData } from "../../data/soundData";
+import { validateValue, randomCategory } from "../../functions/functions";
+import { levelData, categoriesData, questionsData } from "../../data/Datas";
 import { useNavigate } from "react-router-dom";
+import style from "./Home.module.css";
 
 const Home = () => {
   const navigate = useNavigate();
   const [questions, setQuestions] = useState("5");
   const [level, setLevel] = useState("easy");
-  const [category, setCategory] = useState(randomCategory());
+  const [category, setCategory] = useState(randomCategory(categoriesData));
+  const [soundEffects, isSoundEffects] = useState(true);
   const [submit, isSubmit] = useState(false);
 
   useEffect(() => {
@@ -18,23 +19,29 @@ const Home = () => {
           count: questions,
           category: category,
           level: level,
+          sound: soundEffects,
         },
       });
     }
   });
 
-  function randomCategory() {
-    const generateNumbers = Math.floor(Math.random() * 9) + 1;
-    return validateValue(categoriesData[generateNumbers]);
-  }
-
   return (
     <div className={style.homeContainer}>
+      <div>
+        <img />
+      </div>
       <div className={style.content}>
+        <div className={style.logoWrapper}>
+          <img
+            className={style.homeLogo}
+            src="https://ik.imagekit.io/f2ityjkpdv/logo-min.png?tr=w-150,h-150"
+            srcSet="https://ik.imagekit.io/f2ityjkpdv/logo-min.png?tr=w-480,h-480 480w
+            "
+            alt="Trivia Quiz Logo"
+            height="100px"
+          />
+        </div>
         <div className={style.selectWrapper}>
-          <h2>
-            <span>T</span>RIVIA <span>Q</span>UIZ
-          </h2>
           <label htmlFor={category}>Select Category</label>
           <select
             value={category}
@@ -63,11 +70,20 @@ const Home = () => {
               </option>
             ))}
           </select>
-          <div className={style.buttonWrapper}>
-            <button className={style.homeButton} onClick={() => isSubmit(true)}>
-              <p>START</p>
-            </button>
-          </div>
+        </div>
+        <div className={style.buttonWrapper}>
+          <button className={style.homeButton} onClick={() => isSubmit(true)}>
+            <p>START</p>
+          </button>
+        </div>
+        <div className={style.checkBoxWrapper}>
+          <label htmlFor="soundEffects">Sound SFX</label>
+          <input
+            type="checkbox"
+            name="soundEffects"
+            onChange={() => isSoundEffects(!soundEffects)}
+            checked={soundEffects}
+          />
         </div>
       </div>
     </div>

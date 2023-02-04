@@ -2,42 +2,32 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Alert from "../Alert/Alert";
 import style from "./Questions.module.css";
-import TopDrawer from "../drawer/TopDrawer";
+import TopBar from "../TopBar/TopBar";
 
 const Questions = ({
+  setScore,
+  score,
   currQues,
   questions,
   answers,
   setCurrQues,
   correct,
-  score,
-  setScore,
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [selected, setSelected] = useState();
   const [alerted, isAlert] = useState();
 
-  const handleNext = () => {
-    if (currQues + 1 === questions.length) {
-      navigate("/result", {
-        state: {
-          score: score,
-          countQuestions: questions.length,
-          count: location.state?.count,
-          category: location.state?.category,
-          level: location.state?.level,
-        },
-        replace: true,
-      });
-    }
-  };
-
   const handleSelect = (i) => {
-    if (selected === i && selected === correct) return style.select;
-    else if (selected === i && selected !== correct) return style.wrong;
-    else if (selected !== i && i !== correct) return style.unpick;
-    else if (i === correct) return style.select;
+    if (selected === i && selected === correct) {
+      return style.select;
+    } else if (selected === i && selected !== correct) {
+      return style.wrong;
+    } else if (selected !== i && i !== correct) {
+      return style.unpick;
+    } else if (i === correct) {
+      return style.select;
+    }
   };
 
   const handleAlert = (i) => {
@@ -51,10 +41,25 @@ const Questions = ({
     isAlert(true);
     if (i === correct) {
       setScore(score + 1);
+      handleNext();
+    } else {
+      handleNext();
+    }
+  };
+
+  const handleNext = () => {
+    if (currQues + 1 > questions.length) {
       setTimeout(() => {
-        setSelected();
-        isAlert(false);
-        setCurrQues(currQues + 1);
+        navigate("/result", {
+          state: {
+            score: score,
+            countQuestions: questions.length,
+            count: location.state?.count,
+            category: location.state?.category,
+            level: location.state?.level,
+          },
+          replace: true,
+        });
       }, 2000);
     } else {
       setTimeout(() => {
@@ -63,15 +68,14 @@ const Questions = ({
         setCurrQues(currQues + 1);
       }, 2000);
     }
-    handleNext();
   };
 
   return (
     <>
-      {alerted && <Alert correct={handleAlert(selected)} />}
+      <div>{alerted && <Alert correct={handleAlert(selected)} />}</div>
       <div className={style.container}>
-        <TopDrawer
-          currentQuestion={currQues}
+        <TopBar
+          currentQuestion={currQues + 1}
           countQuestions={questions.length}
         />
         <div className={style.questionPanel}>

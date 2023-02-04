@@ -14,10 +14,11 @@ const Result = () => {
   }, []);
 
   function Rate() {
-    if (location.state?.score === location.state?.countQuestions) {
-      return "Perfect";
+    const passingScore = Math.round(location.state?.countQuestions / 2);
+    if (location.state?.score < passingScore) {
+      return "Nice try Mate.";
     } else {
-      return "Noob";
+      return "Congratulations!";
     }
   }
 
@@ -25,8 +26,8 @@ const Result = () => {
     <div className={style.resultContainer}>
       <div className={style.content}>
         <div className={style.buttonContainer}>
-          <div clasName={style.absolutePosi}>
-            <h2>{`Your Score : ${location.state?.score} / ${location.state?.countQuestions}`}</h2>
+          <div className={style.absolutePosi}>
+            <h2>{`${location.state?.score} out of ${location.state?.countQuestions}`}</h2>
             <h2>{Rate()}</h2>
           </div>
         </div>
@@ -49,7 +50,7 @@ const Result = () => {
           <div className={style.buttonWrapper}>
             <button
               className={style.resultButton}
-              onClick={() => navigate("/")}>
+              onClick={() => navigate("/", { state: {} })}>
               Back To Menu
             </button>
           </div>

@@ -1,4 +1,4 @@
-import soundSFX from "../sound/startSFX.mp3";
+import soundSFX from "../sounds/startSFX.mp3";
 
 export const sound = new Audio(soundSFX);
 export const questionsData = ["5", "10", "15", "20"];

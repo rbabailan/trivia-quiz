@@ -1,15 +1,21 @@
 .homeContainer {
   width: 100%;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 100%;
-  max-height: 100vh;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 .content {
   padding: 20px;
+  width: 380px;
+}
+
+.logoWrapper {
+  text-align: center;
 }
 
 .selectWrapper {
@@ -17,14 +23,15 @@
 }
 
 .selectWrapper label {
-  margin-bottom: 7px;
+  color: #008a00;
+  font-weight: bold;
   font-size: 0.95rem;
 }
 
 .selectWrapper select {
   display: block;
   width: 100%;
-  margin-bottom: 5px;
+  margin: 5px 0;
   font-size: 1.125rem;
   border: none;
   border-bottom: 1px solid #808080;
@@ -33,15 +40,16 @@
 }
 
 .selectWrapper h2 {
-  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-size: clamp(1rem, 5vw, 2rem);
   text-align: center;
-  font-weight: 800;
+  font-weight: 600;
+  letter-spacing: 0.2rem;
 }
 
 .selectWrapper h2 span {
   font-size: clamp(2.5rem, 5vw, 3rem);
   text-align: center;
-  font-weight: 800;
+  font-weight: bold;
 }
 
 .buttonWrapper {
@@ -68,20 +76,52 @@
   -webkit-transition: 0.1s;
   transition: 0.125s;
   box-shadow: 0 2px 3px #ccc;
-  position: absolute;
 }
 
 .homeButton:hover {
   background-color: #0da100;
-  border-bottom-width: 0;
-  margin-top: 0.5em;
+}
+
+.checkBoxWrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.checkBoxWrapper input {
+  appearance: none;
+  position: relative;
+  width: 50px;
+  height: 30px;
+  border-radius: 25px;
+  background-color: #ccc;
+  outline: none;
+  cursor: pointer;
+}
+
+.checkBoxWrapper input::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  height: 1.25rem;
+  width: 1.25rem;
+  background-color: var(--white);
+  transition: left 0.3s;
+}
+
+.checkBoxWrapper input:checked {
+  background-color: #00b300;
+}
+
+.checkBoxWrapper input:checked::after {
+  left: 70%;
 }
 
 @media (max-width: 480px) {
-  .homeContainer {
-    height: 100%;
-  }
-
   .content {
     padding: 5px;
     width: 100%;

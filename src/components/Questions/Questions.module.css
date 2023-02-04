@@ -49,7 +49,6 @@
   width: 100%;
   height: 100%;
   border-radius: 10px;
-  background-color: #000000;
   font-size: 1.225rem;
   font-weight: bold;
   color: var(--white);
@@ -83,9 +82,9 @@
   --webkit-backface-visibility: hidden;
 }
 
-@media (max-width: 480px) {
-  .questionWrapper {
-    font-size: 1rem;
+@media (max-width: 580px) {
+  .questionWrapper h2 {
+    font-size: 1.2rem;
   }
 
   .answersWrapper {

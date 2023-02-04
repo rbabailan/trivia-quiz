@@ -1,18 +1,15 @@
-import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { MusicButton } from "../../components/PlaySFX";
+import { playTimer } from "../../components/SoundEffects/playTimer";
 import ProgressCircle from "../../components/ProgressCircle/ProgressCircle";
 import Questions from "../../components/Questions/Questions";
-import Timer from "../../components/Timer";
-import TopDrawer from "../../components/drawer/TopDrawer";
+import Timer from "../../components/Timer/Timer";
 
 const Quiz = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [data, setData] = useState(null);
   const dataRef = useRef(false);
-  const [score, setScore] = useState(0);
 
   useEffect(() => {
     if (location.state !== null) {
@@ -23,11 +20,9 @@ const Quiz = () => {
           );
           const json = await response.json();
           setData(json);
-          MusicButton(true);
+          playTimer(location.state?.sound);
         };
-
         fetchQuestions();
-
         return () => (dataRef.current = true);
       }
     } else {
@@ -37,18 +32,38 @@ const Quiz = () => {
 
   const [options, setOptions] = useState();
   const [currQues, setCurrQues] = useState(0);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     if (data !== null) {
-      setOptions(
-        data &&
-          handleShuffle([
-            data[currQues]?.correctAnswer,
-            ...data[currQues]?.incorrectAnswers,
-          ])
-      );
+      if (data.length > currQues) {
+        setOptions(
+          data &&
+            handleShuffle([
+              data[currQues]?.correctAnswer,
+              ...data[currQues]?.incorrectAnswers,
+            ])
+        );
+      }
     }
   }, [currQues, data]);
+
+  if (data !== null) {
+    if (currQues + 1 > data.length) {
+      setTimeout(() => {
+        navigate("/result", {
+          state: {
+            score: score,
+            countQuestions: data.length,
+            count: location.state?.count,
+            category: location.state?.category,
+            level: location.state?.level,
+          },
+          replace: true,
+        });
+      }, 250);
+    }
+  }
 
   const handleShuffle = (options) => {
     return options.sort(() => Math.random() - 0.5);
@@ -56,7 +71,7 @@ const Quiz = () => {
 
   return (
     <>
-      {data ? (
+      {data && data.length > currQues ? (
         <Timer>
           <Questions
             currQues={currQues}

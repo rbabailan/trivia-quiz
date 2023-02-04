@@ -7,10 +7,10 @@ import Quiz from "./pages/Quiz/Quiz";
 import Result from "./pages/Result/Result";
 
 function App() {
+  let vh = window.innerHeight * 0.01;
   useEffect(() => {
     window.addEventListener("resize", () => {
-      // We execute the same script as before
-      let vh = window.innerHeight * 0.01;
+      vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     });
   });
